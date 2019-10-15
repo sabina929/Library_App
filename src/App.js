@@ -93,14 +93,14 @@ class App extends Component {
         genre: "Fantasy"
       },
       {
-        id: 14,
+        id: 13,
         bookName: "A Game of Thrones",
         author: "George R. R. Martin",
         publishedDate: "1996-07-29",
         genre: "Fantasy"
       },
       {
-        id: 13,
+        id: 14,
         bookName: "The Hobbit",
         author: "J. R. R. Tolkien",
         publishedDate: "1937-09-21",
