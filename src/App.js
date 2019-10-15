@@ -122,6 +122,10 @@ class App extends Component {
     genre: "",
     booksPerPage: 5,
     currentPage: 1,
+    sortedByName: false,
+    sortedByAuthor: false,
+    sortedByPublishedDate: false,
+    sortedByGenre: false
   }
 
 
@@ -183,11 +187,7 @@ class App extends Component {
       bookName: currentBook.bookName,
       author: currentBook.author,
       publishedDate: currentBook.publishedDate,
-      genre: currentBook.genre,
-      sortedByName: false,
-      sortedByAuthor: false,
-      sortedByPublishedDate: false,
-      sortedByGenre: false
+      genre: currentBook.genre
 
     })
   }
@@ -410,6 +410,7 @@ class App extends Component {
          <BookInput bookName={this.state.bookName} author={this.state.author} publishedDate={this.state.publishedDate} genre={this.state.genre} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
 
          <BookList currentBooks={this.state.currentBooks} removeBook={this.removeBook} updateBook={this.updateBook} sortByBookName={this.sortByBookName} sortByAuthor={this.sortByAuthor} sortByPublishedDate={this.sortByPublishedDate} sortByGenre={this.sortByGenre}/>
+         
           <Pagination booksPerPage={this.state.booksPerPage} books={this.state.books} currentPage={this.state.currentPage} paginate={this.paginate}/> 
       </React.Fragment>
 
