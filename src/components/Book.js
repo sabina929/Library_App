@@ -5,7 +5,7 @@ export default class Book extends Component {
 
     const {book, range, editBook, removeBook} = this.props
     return (
-      <div className="single-book">
+      <div className="single-book" style={book.style} >
                 <div>{range + 1}. {book.bookName}</div>
                 <div>{book.author}</div>
                 <div>{book.publishedDate}</div>
@@ -14,3 +14,5 @@ export default class Book extends Component {
     )
   }
 }
+
+// className={edit ? "single-book selected" : "single-book"}

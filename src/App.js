@@ -13,105 +13,150 @@ class App extends Component {
         bookName: "Dune",
         author: "Frank Herbert",
         publishedDate: "1965-08-01",
-        genre: "Science fiction"
+        genre: "Science fiction",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 2,
         bookName: "The Lord of the Rings",
         author: "J. R. R. Tolkien",
         publishedDate: "1954-07-29",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 3,
         bookName: "The Three-Body Problem",
         author: "Lui Cixin",
         publishedDate: "2008-01-01",
-        genre: "Science fiction"
+        genre: "Science fiction",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 4,
         bookName: "A Storm of Swords",
         author: "George R. R. Martin",
         publishedDate: "2000-10-30",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 5,
         bookName: "The Lies of Locke Lamora ",
         author: "Scott Lynch",
         publishedDate: "2006-06-27",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 6,
         bookName: "The Silmarillion",
         author: "J. R. R. Tolkien",
         publishedDate: "1977-09-15",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 7,
         bookName: "A Feast for Crows",
         author: "George R. R. Martin",
         publishedDate: "2005-10-03",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 8,
         bookName: "A Wizard of Earthsea",
         author: "Ursula K. Le Guin",
         publishedDate: "1968-01-01",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 9,
         bookName: "God Emperor of Dune",
         author: "Frank Herbert",
         publishedDate: "1981-05-28",
-        genre: "Science fiction"
+        genre: "Science fiction",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 10,
         bookName: "Red Seas Under Red Skies",
         author: "Scott Lynch",
         publishedDate: "2007-06-20",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 11,
         bookName: "Children of Dune",
         author: "Frank Herbert",
         publishedDate: "1976-04-01",
-        genre: "Science fiction"
+        genre: "Science fiction",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 12,
         bookName: "The Name of the Wind",
         author: "Patrick Rothfuss",
         publishedDate: "2007-03-27",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 13,
         bookName: "A Game of Thrones",
         author: "George R. R. Martin",
         publishedDate: "1996-07-29",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 14,
         bookName: "The Hobbit",
         author: "J. R. R. Tolkien",
         publishedDate: "1937-09-21",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       },
       {
         id: 15,
         bookName: "The Republic of Thieves",
         author: "Scott Lynch",
         publishedDate: "2013-10-08",
-        genre: "Fantasy"
+        genre: "Fantasy",
+        style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        }
       }
     ],
     currentBooks: [],
@@ -140,12 +185,22 @@ class App extends Component {
     e.preventDefault();
 
     const {id, bookName, author, publishedDate, genre} = this.state;
+
+    const genreArr = genre.split("-");
+    const firstLetter = genreArr[0].charAt(0).toUpperCase();
+    const firstWord = genreArr[0].replace(genreArr[0].charAt(0), firstLetter);
+    genreArr[0] = firstWord;
+    // console.log(genreArr);
+
     const newBook = {
       id,
       bookName,
       author,
       publishedDate,
-      genre
+      genre: genreArr.join(' '),
+      style: {
+        backgroundColor: "rgb(255, 255, 255)"
+      }
     }
 
     const updatedBooks = [...this.state.books, newBook];
@@ -183,7 +238,10 @@ class App extends Component {
       book.bookName = this.state.bookName;
       book.author = this.state.author;
       book.publishedDate = this.state.publishedDate;
-      book.genre = this.state.genre;
+      book.genre = genreArr.join(" ");
+      book.style = {
+        backgroundColor: "rgb(255, 255, 255)"
+      };
       // console.log(book)
 
       const editedBooks = [...tempBooks, book];
@@ -217,7 +275,9 @@ class App extends Component {
 
   editBook = (id) => {
     const selectedBook = this.state.books.find(book => book.id === id);
-
+    selectedBook.style = {
+      backgroundColor: "rgb(230, 230, 230)"
+    };
     this.setState({
       id,
       bookName: selectedBook.bookName,
