@@ -4,7 +4,7 @@ import Book from "./Book";
 
 export default class BookList extends Component {
   render() {
-    const {currentBooks, removeBook, updateBook, sortByBookName, sortByAuthor, sortByPublishedDate, sortByGenre} = this.props;
+    const {currentBooks, removeBook, editBook, sortByBookName, sortByAuthor, sortByPublishedDate, sortByGenre} = this.props;
 
     return (
       <React.Fragment>
@@ -20,7 +20,7 @@ export default class BookList extends Component {
                   {
       currentBooks.map((book, index) => {
         return (
-          <Book key={book.id} range={index} book={book} removeBook={() => removeBook(book.id)} updateBook={() => updateBook(book.id)}/>
+          <Book key={book.id} range={index} book={book} removeBook={() => removeBook(book.id)} editBook={() => editBook(book.id)}/>
         )
       })
       } 

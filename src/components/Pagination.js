@@ -20,7 +20,7 @@ export default class Pagination extends Component {
                 {
       pageNumbers.length === 0 ? <li className="selected" onClick={() => paginate(1)}><div>1</div></li> : null
       }
-                  
+                   
        {
       pageNumbers.map(pageNumber => {
         return (

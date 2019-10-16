@@ -120,6 +120,7 @@ class App extends Component {
     author: "",
     publishedDate: "",
     genre: "",
+    edit: false,
     booksPerPage: 5,
     currentPage: 1,
     sortedByName: false,
@@ -156,38 +157,74 @@ class App extends Component {
     // console.log(currentBooks);
 
 
-    this.setState(() => {
-      return {
-        books: updatedBooks,
-        currentBooks,
-        id: uuid(),
-        bookName: "",
-        author: "",
-        publishedDate: "",
-        genre: ""
+    if (!this.state.edit) {
+      this.setState(() => {
+        return {
+          books: updatedBooks,
+          currentBooks,
+          id: uuid(),
+          bookName: "",
+          author: "",
+          publishedDate: "",
+          genre: ""
+        }
       }
+      )
     }
-    )
+    if (this.state.edit) {
+
+      let tempBooks = [...this.state.books];
+      const selectedBook = this.state.books.find(book => book.id === this.state.id);
+      // console.log(selectedBook)
+      const index = tempBooks.indexOf(selectedBook);
+      // console.log(index)
+      const book = tempBooks[index];
+      // console.log(book)
+      book.bookName = this.state.bookName;
+      book.author = this.state.author;
+      book.publishedDate = this.state.publishedDate;
+      book.genre = this.state.genre;
+      // console.log(book)
+
+      const editedBooks = [...tempBooks, book];
+      // console.log(editedBooks)
+      editedBooks.splice(-1, 1);
+      // console.log(editedBooks)
+
+      // GET CURRENT BOOKS
+      const indexOfLastBook = this.state.currentPage * this.state.booksPerPage;
+      const indexOfFirstBook = indexOfLastBook - this.state.booksPerPage;
+      const currentEditedBooks = editedBooks.slice(indexOfFirstBook, indexOfLastBook);
+
+      this.setState(() => {
+        return {
+          books: editedBooks,
+          currentBooks: currentEditedBooks,
+          id: uuid(),
+          bookName: "",
+          author: "",
+          publishedDate: "",
+          genre: "",
+          edit: false
+        }
+      }, () => {
+        // console.log(this.state);
+      }
+      )
+    }
   }
 
 
-  updateBook = (id) => {
-    const filteredBooks = this.state.books.filter(book => book.id !== id);
-    const currentBook = this.state.books.find(book => book.id === id);
-
-    // GET CURRENT BOOKS
-    const indexOfLastBook = this.state.currentPage * this.state.booksPerPage;
-    const indexOfFirstBook = indexOfLastBook - this.state.booksPerPage;
-    const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+  editBook = (id) => {
+    const selectedBook = this.state.books.find(book => book.id === id);
 
     this.setState({
-      books: filteredBooks,
-      currentBooks,
       id,
-      bookName: currentBook.bookName,
-      author: currentBook.author,
-      publishedDate: currentBook.publishedDate,
-      genre: currentBook.genre
+      bookName: selectedBook.bookName,
+      author: selectedBook.author,
+      publishedDate: selectedBook.publishedDate,
+      genre: selectedBook.genre,
+      edit: true
 
     })
   }
@@ -293,6 +330,8 @@ class App extends Component {
     const tempBooksOne = [...this.state.books];
     const tempBooksTwo = [...this.state.books];
 
+    // const d = new Date().toISOString()
+    // const d = new Date().toISOString().split('T')
     // const d = new Date().toISOString().split('T')[0]
     // console.log(d)
     // console.log(typeof d)
@@ -406,12 +445,11 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-      
-         <BookInput bookName={this.state.bookName} author={this.state.author} publishedDate={this.state.publishedDate} genre={this.state.genre} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+         <BookInput bookName={this.state.bookName} author={this.state.author} publishedDate={this.state.publishedDate} genre={this.state.genre} edit={this.state.edit} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
 
-         <BookList currentBooks={this.state.currentBooks} removeBook={this.removeBook} updateBook={this.updateBook} sortByBookName={this.sortByBookName} sortByAuthor={this.sortByAuthor} sortByPublishedDate={this.sortByPublishedDate} sortByGenre={this.sortByGenre}/>
+         <BookList currentBooks={this.state.currentBooks} removeBook={this.removeBook} editBook={this.editBook} sortByBookName={this.sortByBookName} sortByAuthor={this.sortByAuthor} sortByPublishedDate={this.sortByPublishedDate} sortByGenre={this.sortByGenre}/>
          
-          <Pagination booksPerPage={this.state.booksPerPage} books={this.state.books} currentPage={this.state.currentPage} paginate={this.paginate}/> 
+         <Pagination booksPerPage={this.state.booksPerPage} books={this.state.books} currentPage={this.state.currentPage} paginate={this.paginate}/> 
       </React.Fragment>
 
       );

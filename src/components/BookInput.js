@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class BookInput extends Component {
   render() {
-    const {bookName, author, publishedDate, genre, handleSubmit, handleChange} = this.props
+    const {bookName, author, publishedDate, genre, edit, handleSubmit, handleChange} = this.props
     return (
       <div className="form-container">
             <form onSubmit={handleSubmit}>
@@ -54,7 +54,7 @@ export default class BookInput extends Component {
                     </select>
                 </div>
 
-                <button type="submit">Add Book</button>
+                <button type="submit">{edit ? "Edit Book" : "Add Book"}</button>
             </form> 
       </div>
     )
