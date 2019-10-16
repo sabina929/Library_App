@@ -166,6 +166,7 @@ class App extends Component {
     publishedDate: "",
     genre: "",
     edit: false,
+    selected: false,
     booksPerPage: 5,
     currentPage: 1,
     sortedByName: false,
@@ -263,6 +264,7 @@ class App extends Component {
           author: "",
           publishedDate: "",
           genre: "",
+          selected: false,
           edit: false
         }
       }, () => {
@@ -275,18 +277,36 @@ class App extends Component {
 
   editBook = (id) => {
     const selectedBook = this.state.books.find(book => book.id === id);
-    selectedBook.style = {
-      backgroundColor: "rgb(230, 230, 230)"
-    };
-    this.setState({
-      id,
-      bookName: selectedBook.bookName,
-      author: selectedBook.author,
-      publishedDate: selectedBook.publishedDate,
-      genre: selectedBook.genre,
-      edit: true
+    
+    if(!this.state.selected){
+      selectedBook.style = {
+        backgroundColor: "rgb(232, 232, 232)"
+      };
+      this.setState({
+        id,
+        bookName: selectedBook.bookName,
+        author: selectedBook.author,
+        publishedDate: selectedBook.publishedDate,
+        genre: selectedBook.genre,
+        selected: true,
+        edit: true
+      })
+    }  else if(this.state.selected) {
+      selectedBook.style = {
+        backgroundColor: "rgb(255, 255, 255)"
+      };
+      this.setState({
+        id,
+        bookName: '',
+        author: '',
+        publishedDate: '',
+        genre: '',
+        selected: false,
+        edit: false
+      })
+    }
 
-    })
+
   }
 
 
