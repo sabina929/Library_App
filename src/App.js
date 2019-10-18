@@ -264,6 +264,9 @@ class App extends Component {
           author: "",
           publishedDate: "",
           genre: "",
+           style: {
+          backgroundColor: "rgb(255, 255, 255)"
+        },
           selected: false,
           edit: false
         }
@@ -296,7 +299,7 @@ class App extends Component {
         backgroundColor: "rgb(255, 255, 255)"
       };
       this.setState({
-        id,
+        id: uuid(),
         bookName: '',
         author: '',
         publishedDate: '',
@@ -321,6 +324,12 @@ class App extends Component {
     this.setState({
       books: filteredBooks,
       currentBooks,
+      bookName: '',
+      author: '',
+      publishedDate: '',
+      genre: '',
+      selected: false,
+      edit: false
     })
   }
 
