@@ -324,6 +324,7 @@ class App extends Component {
     this.setState({
       books: filteredBooks,
       currentBooks,
+      id: uuid(),
       bookName: '',
       author: '',
       publishedDate: '',
